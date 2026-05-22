@@ -5,7 +5,7 @@ public:
         while(b != 0) {
 
             // carry
-            unsigned carry = (unsigned)(a & b) << 1;
+            int carry = (a & b) << 1;
 
             // sum without carry
             a = a ^ b;
