@@ -1,29 +1,37 @@
 class Solution {
 public:
-    void solve(int idx, vector<int>& candidates, int target,
-               vector<int>& path, vector<vector<int>>& ans) {
-
+    void backtrack(vector<int>& candidates, int target, int start,
+                   vector<int>& current, vector<vector<int>>& result) {
+        
+        // Base case 1: exact match found
         if (target == 0) {
-            ans.push_back(path);
+            result.push_back(current);
             return;
         }
 
-        if (target < 0) return;
+        // Try every number from 'start' onward
+        for (int i = start; i < candidates.size(); i++) {
+            // If current number is bigger than remaining target, skip it
+            if (candidates[i] > target) {
+                continue;
+            }
 
-        for (int i = idx; i < candidates.size(); i++) {
-            path.push_back(candidates[i]);
+            // Choose the number
+            current.push_back(candidates[i]);
 
-            // i again, because same element can be reused
-            solve(i, candidates, target - candidates[i], path, ans);
+            // Recurse:
+            // i is passed again because the same number can be used unlimited times
+            backtrack(candidates, target - candidates[i], i, current, result);
 
-            path.pop_back(); // backtrack
+            // Undo the choice (backtracking step)
+            current.pop_back();
         }
     }
 
     vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
-        vector<vector<int>> ans;
-        vector<int> path;
-        solve(0, candidates, target, path, ans);
-        return ans;
+        vector<vector<int>> result;
+        vector<int> current;
+        backtrack(candidates, target, 0, current, result);
+        return result;
     }
 };
