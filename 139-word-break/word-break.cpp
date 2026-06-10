@@ -21,4 +21,4 @@ public:
         vector<int> dp(s.size(), -1);
         return solve(0, s, st, dp);
     }
-};
+};// easily implement 
