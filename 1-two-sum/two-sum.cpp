@@ -21,4 +21,4 @@ public:
         // Return empty vector if no solution is found (though the problem guarantees one)
         return {}; 
     }
-};
+};// that is very easily to solve them
